@@ -36,7 +36,6 @@ class Router
 
 			if(preg_match($route, $url))
 			{
-				echo 'есть роут';
 				$this->params = $param;
 
 				return true;
@@ -44,7 +43,7 @@ class Router
 			
 		}
 
-		echo '404';
+		Views::errorCode('404');
 		return false;
 	}
 
@@ -56,21 +55,15 @@ class Router
 			
 			if(class_exists($path))
 			{
-
 				$action = $this->params['action'].'Action';
 
 				if(method_exists($path, $action)){// проверяет существует метод в классе
 					$controller = new $path($this->params);
 					$controller->$action();
-				}else
-				{
-					echo 'ok controller';
 				}
 				
-			}else
-			{
-				echo 'нет контролера';
 			}
-		};
+		}
+
 	}
 }
